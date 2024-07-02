@@ -4,17 +4,24 @@
 
 @section('page-content')
 <div class="container-fluid">
-    <div class="row ps-1">
-        <div class="col bg-black text-light fs-5 text-start">
-             Assign Role to {{ $user->name }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
+    <div class="card w-75 mb-3 mx-auto class">
+        <div class="card-body">
+            <div class="col bg-black text-light fs-5 text-start">
+                Account Information
+            </div>
+
+            <div>
+                <h6>User Name: {{ $user->name }}</h6>
+                <h6>Full Name: {{$user->userInfo->user_firstname.' '.$user->userInfo->user_lastname}}</h6>
+                <h6>Email: {{ $user->email }}</h6>
+                <h6>Current Role: {{ $user->roles->first()->name }}</h6>
+            </div>
             <form action="{{ route('user.assignRole.submit', ['id' => $user->id]) }}" method="POST">
                 @csrf
                 <div class="mb-3">
-                    <label for="role" class="form-label">Select Role</label>
+                    <div class="col bg-black text-light fs-5 text-start">
+                        Select new role to assign
+                    </div>
                     <select id="role" name="role" class="form-select">
                         @foreach($roles as $role)
                             <option value="{{ $role->id }}">{{ $role->name }}</option>
@@ -23,11 +30,10 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Assign Role</button>
             </form>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <a href="{{ route('usertool') }}" class="link-dark">Back</a>
+
+            <div class="col">
+                <a href="{{ route('usertool') }}" class="link-dark">Back</a>
+            </div>
         </div>
     </div>
 </div>
