@@ -25,7 +25,13 @@
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->userInfo->user_firstname.' '.$user->userInfo->user_lastname }}</td>
-                        <td>{{ $user->roles->first()->name }}</td>
+                        <td>
+                            @if($user->roles->isNotEmpty())
+                                {{ $user->roles->first()->name }}
+                            @else
+                                No Role Assigned
+                            @endif
+                        </td>
                         <td>{{ $user->email }}</td>
                         <td class="text-center">
                             <a href="{{ route('user.assignRole', ['id' => $user->id]) }}" title="Manage Selected User">

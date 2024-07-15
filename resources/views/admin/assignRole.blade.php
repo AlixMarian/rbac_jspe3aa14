@@ -14,7 +14,7 @@
                 <h6>User Name: {{ $user->name }}</h6>
                 <h6>Full Name: {{$user->userInfo->user_firstname.' '.$user->userInfo->user_lastname}}</h6>
                 <h6>Email: {{ $user->email }}</h6>
-                <h6>Current Role: {{ $user->roles->first()->name }}</h6>
+                <h6>Current Role: {{ $user->roles->isNotEmpty() ? $user->roles->first()->name : 'No role assigned' }}</h6>
             </div>
             <form action="{{ route('user.assignRole.submit', ['id' => $user->id]) }}" method="POST">
                 @csrf
